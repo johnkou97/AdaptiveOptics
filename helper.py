@@ -18,7 +18,7 @@ import pandas as pd
 
 class LearningCurvePlot:
 
-    def __init__(self, title=None, ylabel="Reward", y_lim=(-10, 37)):
+    def __init__(self, title=None, ylabel="Reward", y_lim=(0, 1)):
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlabel('Episodes')
         self.ax.set_ylabel(ylabel)
