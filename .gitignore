@@ -1,12 +1,12 @@
 # folders to ignore
 gym_ao/
 __pycache__/
+.ipynb_checkpoints/
 
 # extensions to ignore
 *.pt
-*.ipynb_checkpoints
-*.ipynb
 *.npy
 
 # files to ignore
+*test*
 
