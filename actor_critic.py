@@ -228,20 +228,23 @@ if __name__ == '__main__':
     # Define the environment
     env = Sharpening_AO_system()
 
+    env_name = str(env).split('.')[2].split('_')[1]
+    print(env_name)
+
     # Define the Actor-Critic algorithm and train it
     hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4,
                                             bootstrap=args.bootstrap, baseline=args.baseline)
     ac = ActorCritic(env=env, hyperparams=hyperparams_ac, experiment_name='actor-critic')
     rewards = ac.train(n_epochs=500)
     
-    torch.save(ac.actor, 'actor_critic.pt')  # Save the actor model for evaluation
+    torch.save(ac.actor, env_name + '_actor_critic.pt')  # Save the actor network
 
-    np.save('rewards_actor_critic.npy', rewards)  # Save the rewards
+    np.save('rewards_' + env_name + '_actor_critic.npy', rewards)  # Save the rewards
 
     # Plot the rewards
     plt.figure()
     plt.plot(smooth(rewards, 51))
     plt.ylabel('Rewards')
     plt.xlabel('Episodes')
-    plt.savefig('actor_critic.png', dpi=600)
+    plt.savefig(env_name + '_actor_critic.png', dpi=600)
     plt.close()
