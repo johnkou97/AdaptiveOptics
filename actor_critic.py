@@ -62,7 +62,7 @@ class HyperparamsActorCritic:
     def __init__(self, gamma: float = 0.99, lr_actor: float = 0.005, lr_critic: float = 0.05, hidden_units: int = 128,
                  optimizer: str = "Adam", entropy_reg: float = 0.01, batch_size: int = 4, n_steps: int = 1,
                  bootstrap: bool = True, baseline: bool = True, anneal: bool = False, min_entro_reg: float = 0.001,
-                 perc: float = 0.6):
+                 perc: float = 0.6, trace_length: int = 1000):
         self.bootstrap = bootstrap
         self.baseline = baseline
         self.gamma = gamma
@@ -76,13 +76,14 @@ class HyperparamsActorCritic:
         self.anneal = anneal
         self.min_entro_reg = min_entro_reg
         self.perc = perc
+        self.trace_length = trace_length
 
     def dict(self):
         return {"gamma": self.gamma, "lr_actor": self.lr_actor, "lr_critic": self.lr_critic,
                 "hidden_units": self.hidden_units, "optimizer": self.optimizer, "entropy_reg": self.entropy_reg,
                 "batch_size": self.batch_size, "n_steps": self.n_steps, "bootstrap": self.bootstrap,
                 "baseline": self.baseline, "anneal": self.anneal, "min_entro_reg": self.min_entro_reg,
-                "perc": self.perc}
+                "perc": self.perc, "trace_length": self.trace_length}
 
 
 # Define the Actor-Critic algorithm with bootstrapping and baseline subtraction
@@ -103,6 +104,7 @@ class ActorCritic:
         self.n_step = hyperparams.n_steps
         self.bootstrap = hyperparams.bootstrap
         self.baseline = hyperparams.baseline
+        self.trace_length = hyperparams.trace_length
 
     @staticmethod   
     def compute_entropy(m) -> torch.Tensor:
@@ -125,8 +127,7 @@ class ActorCritic:
         trace = []
         reward_trace = 0
         done = False
-        # while not done:
-        for _ in range(100):
+        for _ in range(self.trace_length):
             a, log_probs, entropy = self.get_action(s)
             next_s, r, done, _, _ = self.env.step(a)
             reward_trace += r
