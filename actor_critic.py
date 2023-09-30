@@ -239,10 +239,10 @@ if __name__ == '__main__':
     print(env_name)
 
     # Define the Actor-Critic algorithm and train it
-    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4, trace_length=100,
+    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4, trace_length=10,
                                             bootstrap=args.bootstrap, baseline=args.baseline)
     ac = ActorCritic(env=env, hyperparams=hyperparams_ac, experiment_name='actor-critic')
-    rewards = ac.train(n_epochs=500)
+    rewards = ac.train(n_epochs=1000)
     
     torch.save(ac.actor, env_name + '_actor_critic.pt')  # Save the actor network
 
