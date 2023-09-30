@@ -113,12 +113,18 @@ class ActorCritic:
 
     def get_action(self, state):
         state = torch.FloatTensor(np.array(state, dtype=np.float32)).unsqueeze(0)
-        action_probs = self.actor(state)
-        dist = torch.distributions.Categorical(action_probs)
+        action_mean = self.actor(state)
+        action_std = torch.ones_like(action_mean) * 0.1  # You can adjust the standard deviation as needed
+        dist = torch.distributions.Normal(action_mean, action_std)
         action = dist.sample()
+        # Clip the action to ensure it falls within the desired range
+        action = torch.clamp(action, -0.3, 0.3)
         log_prob = dist.log_prob(action)
-        entropy = self.compute_entropy(dist)  # entropy
-        return action.item(), log_prob, entropy
+        entropy = dist.entropy()
+        return action.squeeze().numpy(), log_prob, entropy
+
+
+
 
     def generate_trace(self) -> (list, float):
         """Generates a trace of the environment using the current policy model"""
@@ -204,7 +210,7 @@ class ActorCritic:
             loss_actor /= self.hyperparams.batch_size
             loss_critic /= self.hyperparams.batch_size
 
-            train_rewards.append(mean_reward)
+            # train_rewards.append(mean_reward)
             if epoch % 20 == 0:
                 print(f'Episode: {epoch}, average reward last 20 epochs: {np.mean(train_rewards[-20:])}')
 
@@ -233,7 +239,7 @@ if __name__ == '__main__':
     print(env_name)
 
     # Define the Actor-Critic algorithm and train it
-    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4,
+    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4, trace_length=100,
                                             bootstrap=args.bootstrap, baseline=args.baseline)
     ac = ActorCritic(env=env, hyperparams=hyperparams_ac, experiment_name='actor-critic')
     rewards = ac.train(n_epochs=500)
