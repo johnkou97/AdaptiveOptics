@@ -33,19 +33,6 @@ Run the environment with the following command:
 
 ### Image sharpening using Actor-Critic
 
-![Image sharpening](sharpening_actor_critic.png)
+![Image sharpening](experiments/sharpening_actor_critic.png)
 
-![Image sharpening](experiment_actor_critic.png)
-
-Takeaways:
-- We managed to set up the environment
-- The agent is able to achieve some level of learning, although it is not near optimal
-- No hyperparameter tuning was done
-- No domain specific knowledge was used
-- **Promising as a first step**
-
-Next steps:
-- Use domain specific knowledge to improve the agent
-- Tune hyperparameters
-- Try different agents
-- **Use the Bigger, Better, Faster agent?**
+![Image sharpening](experiments/actor_critic_n_steps.png)
