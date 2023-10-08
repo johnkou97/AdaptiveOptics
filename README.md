@@ -52,8 +52,9 @@ Run the environment with the following command:
     * Reducing the number of actuators
     * Reducing the number of image error from the atmosphere
     * Use "zernike" modes instead of actuators
+- Try discretizing the action space
 - Try different network architectures
-- Try to use a different agent from the stable-baselines library 
+- Use a different agent from the stable-baselines library
 - Explore the Dark hole environment
 
 
