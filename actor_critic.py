@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import argparse
 from helper import linear_anneal, smooth
 from gym_ao.gym_ao.gym_sharpening import Sharpening_AO_system
+from gym_ao.gym_ao.gym_darkhole import Darkhole_AO_system
 
 
 parser = argparse.ArgumentParser()
@@ -136,10 +137,12 @@ class ActorCritic:
         for _ in range(self.trace_length):
             a, log_probs, entropy = self.get_action(s)
             next_s, r, done, _, _ = self.env.step(a)
+            # print(f'Reward: {r}')
             reward_trace += r
             next_s = torch.tensor(next_s)
             trace.append(TraceElement(s, a, r, next_s, done, log_probs, entropy))
             s = next_s
+        # print(f'Episode reward: {reward_trace}')
         return trace, reward_trace
 
     def bootstrapping(self, trace):
@@ -166,7 +169,8 @@ class ActorCritic:
                 q_n.append(self.bootstrapping(trace[t:]))
             else:
                 temp_qn = self.critic(trace[t].state) - self.critic(trace[t].state)  # Keep track of the gradient
-                q_n.append(temp_qn)
+                q_n.append(temp_qn)  # Works for Sharpening env
+                # q_n.append(temp_qn.detach().numpy()) # Works for both envs
                 for k in range(len(trace) - t):
                     q_n[-1] += (self.gamma ** k) * trace[t+k].reward
 
@@ -175,8 +179,8 @@ class ActorCritic:
                 advantage.append(self.baseline_subtraction(trace[t], q_n[-1]))
             else:
                 advantage.append(q_n[-1])
-
-        return torch.stack(q_n), torch.stack(advantage).squeeze(1)
+        return torch.stack(q_n), torch.stack(advantage).squeeze(1) # Works for Sharpening env
+        # return torch.stack([torch.tensor(q, dtype=torch.float32) for q in q_n]), torch.stack([torch.tensor(a, dtype=torch.float32) for a in advantage]).squeeze(1) # Works for both envs
 
     def train(self, n_epochs=1000):
         # Train the Actor-Critic algorithm
@@ -189,7 +193,7 @@ class ActorCritic:
                 # Generate a trace of the environment
                 trace, reward_trace = self.generate_trace()
                 mean_reward += reward_trace / self.hyperparams.batch_size
-                train_rewards.append(reward_trace)
+                train_rewards.append(reward_trace/ self.hyperparams.trace_length)
 
                 # Learn from the trace
                 q_n, advantage = self.learn(trace)
@@ -234,6 +238,7 @@ class ActorCritic:
 if __name__ == '__main__':
     # Define the environment
     env = Sharpening_AO_system()
+    # env = Darkhole_AO_system()
 
     env_name = str(env).split('.')[2].split('_')[1]
     print(env_name)
