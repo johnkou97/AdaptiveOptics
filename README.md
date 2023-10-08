@@ -29,10 +29,35 @@ Run the environment with the following command:
 
 ```python gym_ao/gym_ao/gym_darkhole.py```
 
-## Initial Tests
+## Initial Test
 
 ### Image sharpening using Actor-Critic
 
-![Image sharpening](experiments/sharpening_actor_critic.png)
-
 ![Image sharpening](experiments/actor_critic_n_steps.png)
+
+
+## Notes
+
+- Previous results were obtained with a bug in the environment. The reward was not normalized and the shape of the actions was not correct.
+- We managed to fix the issue with the shape of the actions. 
+- We managed to fix the issue with the normalization of the reward. We now have two options:
+    * Get the average reward over the full trajectory
+    * Get the reward at the end of the trajectory (n steps)
+- The agent is no longer able to learn.
+- We tried to play with the hyperparameters but it did not help.
+
+## TODO
+
+- Try on a simpler version of the environment by:
+    * Reducing the number of actuators
+    * Reducing the number of image error from the atmosphere
+    * Use "zernike" modes instead of actuators
+- Try different network architectures
+- Try to use a different agent from the stable-baselines library 
+- Explore the Dark hole environment
+
+
+
+
+
+
