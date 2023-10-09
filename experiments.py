@@ -18,7 +18,7 @@ print("N_Steps: 1")
 results = []
 for run in range(n_runs):
     print(f"Run {run+1} of {n_runs}")
-    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4, trace_length=10, 
+    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=1, batch_size=4, trace_length=100, 
                                             bootstrap=True, baseline=True)
     ac = ActorCritic(env, hyperparams_ac, experiment_name=f"actor_critic_run_{run}")
     rewards = ac.train(n_epochs=1000)
@@ -30,7 +30,7 @@ print("N_Steps: 2")
 results = []
 for run in range(n_runs):
     print(f"Run {run+1} of {n_runs}")
-    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=2, batch_size=4, trace_length=10,
+    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=2, batch_size=4, trace_length=100,
                                             bootstrap=True, baseline=True)
     ac = ActorCritic(env, hyperparams_ac, experiment_name=f"actor_critic_run_{run}")
     rewards = ac.train(n_epochs=1000)
@@ -42,7 +42,7 @@ print("N_Steps: 5")
 results = []
 for run in range(3):
     print(f"Run {run+1} of {n_runs}")
-    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=5, batch_size=4, trace_length=10,
+    hyperparams_ac = HyperparamsActorCritic(entropy_reg=0.01, lr_actor=0.005, lr_critic=0.05, n_steps=5, batch_size=4, trace_length=100,
                                             bootstrap=True, baseline=True)
     ac = ActorCritic(env, hyperparams_ac, experiment_name=f"actor_critic_run_{run}")
     rewards = ac.train(n_epochs=1000)
