@@ -33,7 +33,7 @@ Run the environment with the following command:
 
 ### Image sharpening using Actor-Critic
 
-![Image sharpening](experiments/actor_critic_n_steps.png)
+![Image sharpening](experiments/actor_critic_n_steps_zoom.png)_
 
 
 ## Notes
