@@ -2,7 +2,7 @@ import os
 import gym
 import numpy as np
 import torch as th
-from stable_baselines3 import TD3
+from stable_baselines3 import A2C
 from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import BaseCallback
 from helper import LearningCurvePlot, smooth
@@ -17,12 +17,15 @@ class RewardCallback(BaseCallback):
         # Append the reward to the list after each step
         self.rewards.append(self.locals["rewards"])
         return True
+    def reset(self):
+        self.rewards = []
+
 
 class CustomEnvWrapper(gym.Env):
     def __init__(self):
         # Initialize your Sharpening_AO_system environment here
         self.env = Sharpening_AO_system()
-        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(400,), dtype=np.float32)
+        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(4,), dtype=np.float32)
         self.observation_space = gym.spaces.Box(low=0, high=1., shape=self.env.observation_space.shape, dtype=np.float32)
 
     def step(self, action):
@@ -43,25 +46,24 @@ class CustomEnvWrapper(gym.Env):
 env = CustomEnvWrapper()
 
 # Create and train the TD3 model with the custom callback
-model = TD3("MlpPolicy", env, verbose=1, buffer_size=10000)
+model = A2C("MlpPolicy", env, verbose=1)
 callback = RewardCallback()
-model.learn(total_timesteps=1000000, callback=callback, progress_bar=True) 
+model.learn(total_timesteps=1000, callback=callback, progress_bar=True)
 
 # Save the trained model
-model.save("td3_sharpening")
+model.save("a2c_sharpening")
 
 # Get the rewards
 rewards = callback.rewards
 # Flatten the list of reward arrays into a single list
 rewards_flat = [item for sublist in rewards for item in sublist]
 # Save the rewards array to a file
-print(type(rewards_flat))
-np.save("rewards_td3_sharpening.npy", rewards_flat)
+np.save("rewards_a2c_sharpening.npy", rewards_flat)
 
 # Plot the rewards
 plot = LearningCurvePlot()
-plot.add_curve(smooth([rewards_flat], 101), "TD3")
-plot.save("td3_sharpening.png")
+plot.add_curve(smooth([rewards_flat], 101), "A2C")
+plot.save("a2c_sharpening.png")
 
 # Close the environment
 env.close()
