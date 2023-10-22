@@ -29,33 +29,28 @@ Run the environment with the following command:
 
 ```python gym_ao/gym_ao/gym_darkhole.py```
 
-## Initial Test
+## Discussion during previous meeting
 
-### Image sharpening using Actor-Critic
+1. Simplify the environment
+2. Try different algorithms
+3. Try longer training
+4. Large action space
+5. Rewards too sparse
+6. Use recurrent network
+7. Exploration vs exploitation
 
-![Image sharpening](experiments/actor_critic_n_steps_zoom.png)_
+## What we tried
 
+- We addressed problems 2 and 3 by using `SAC` from `stable-baselines3` and training for 100k steps.
 
-## Notes
+<img src="sac_sharpening.png" width="400" height="200">
 
-- Previous results were obtained with a bug in the environment. The reward was not normalized and the shape of the actions was not correct.
-- We managed to fix the issue with the shape of the actions. 
-- We managed to fix the issue with the normalization of the reward. We now have two options:
-    * Get the average reward over the full trajectory
-    * Get the reward at the end of the trajectory (n steps)
-- The agent is no longer able to learn.
-- We tried to play with the hyperparameters but it did not help.
+- We addressed problem 4 and 1 by using a smaller action space (16 actuators instead of 400) and reducing the RMS of the noise in the observation (from 1.7 to 1.2).
 
-## TODO
+<img src="sac_sharpening_experiment.png" width="400" height="200">
 
-- Try on a simpler version of the environment by:
-    * Reducing the number of actuators
-    * Reducing the number of image error from the atmosphere
-    * Use "zernike" modes instead of actuators
-- Try discretizing the action space
-- Try different network architectures
-- Use a different agent from the stable-baselines library
-- Explore the Dark hole environment
+- We are currently running more experiments with longer training. 
+
 
 
 
