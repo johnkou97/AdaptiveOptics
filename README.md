@@ -41,15 +41,19 @@ Run the environment with the following command:
 
 ## What we tried
 
-- We addressed problems 2 and 3 by using `SAC` from `stable-baselines3` and training for 100k steps.
+- We addressed problems 2 and 3 by using `SAC` and `A2C` from `stable-baselines3` and training for 100k steps.
 
 <img src="sac_sharpening.png" width="400" height="200">
 
-- We addressed problem 4 and 1 by using a smaller action space (16 actuators instead of 400) and reducing the RMS of the noise in the observation (from 1.7 to 1.2).
+- We addressed problem 4 and 1 by using a smaller action space (4 actuators instead of 400) and reducing the RMS of the noise in the observation (from 1.7 to 1.2).
 
 <img src="sac_sharpening_experiment.png" width="400" height="200">
 
-- We are currently running more experiments with longer training. 
+<img src="a2c_sharpening_experiment.png" width="400" height="200">
+
+<img src="a2c_sharpening_experiment_explained.png" width="400" height="200">
+
+
 
 
 
