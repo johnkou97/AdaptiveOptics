@@ -50,7 +50,7 @@ model = A2C("MlpPolicy", env, verbose=1)
 callback = RewardCallback()
 
 # Create an experiment
-n_timesteps = 100000
+n_timesteps = 1000000
 n_runs = 3
 
 plot = LearningCurvePlot()
@@ -64,7 +64,7 @@ for run in range(n_runs):
     rewards = callback.rewards
     rewards_flat = [item for sublist in rewards for item in sublist]
     np.save(f'experiments/a2c_run_{run}.npy', rewards_flat)
-    results.append(smooth(rewards_flat, 51))
+    results.append(smooth(rewards_flat, 1001))
     # Reset the callback
     callback.reset()
     print(np.shape(results))
