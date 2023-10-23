@@ -45,7 +45,7 @@ Run the environment with the following command:
 
 <img src="sac_sharpening.png" width="400" height="200">
 
-- We addressed problem 4 and 1 by using a smaller action space (4 actuators instead of 400) and reducing the RMS of the noise in the observation (from 1.7 to 1.2).
+- We addressed problem 4 and 1 by using a smaller action space (4 actuators instead of 400) and reducing the amplitude of the aberrations (from 1.7 to 1.2).
 
 <img src="sac_sharpening_experiment.png" width="400" height="200">
 
