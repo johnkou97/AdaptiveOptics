@@ -50,7 +50,7 @@ model = SAC("MlpPolicy", env, verbose=1, buffer_size=10000)
 callback = RewardCallback()
 
 # Create an experiment
-n_timesteps = 10000
+n_timesteps = 100000
 n_runs = 3
 
 plot = LearningCurvePlot()
