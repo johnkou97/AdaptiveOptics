@@ -3,20 +3,37 @@ import gym
 import numpy as np
 import torch as th
 from stable_baselines3 import SAC
-from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import BaseCallback
-from helper import LearningCurvePlot, smooth
 from gym_ao.gym_ao.gym_sharpening import Sharpening_AO_system
+import wandb
+from callbacks import WandbCustomCallback
 
-class RewardCallback(BaseCallback):
-    def __init__(self, verbose=0):
-        super(RewardCallback, self).__init__(verbose)
-        self.rewards = []
+# Set up Weights and Biases
 
-    def _on_step(self):
-        # Append the reward to the list after each step
-        self.rewards.append(self.locals["rewards"])
-        return True
+config = {
+    "policy_type": "MlpPolicy",
+    "env_name": "Sharpening_AO_system"
+}
+
+api = wandb.Api()
+
+runs = api.runs("adapt_opt/sharpening-ao-system")
+
+group_name = "SAC-test"
+
+run_num = 0
+for run in runs:
+    if group_name in run.name:
+        run_num += 1
+
+run = wandb.init(
+    group=group_name,
+    name=f"SAC-test-run-{run_num}",
+    project="sharpening-ao-system",
+    entity="adapt_opt",
+    config=config,
+    sync_tensorboard=True,
+)
 
 
 class CustomEnvWrapper(gym.Env):
@@ -43,26 +60,10 @@ class CustomEnvWrapper(gym.Env):
 # Create the Gym wrapper
 env = CustomEnvWrapper()
 
-# Create and train the SAC model with the custom callback
-model = SAC("MlpPolicy", env, verbose=1, buffer_size=10000)
-callback = RewardCallback()
-model.learn(total_timesteps=100000, callback=callback) 
-
-# Save the trained model
-model.save("sac_sharpening")
-
-# Get the rewards
-rewards = callback.rewards
-# Flatten the list of reward arrays into a single list
-rewards_flat = [item for sublist in rewards for item in sublist]
-# Save the rewards array to a file
-print(type(rewards_flat))
-np.save("rewards_sac_sharpening.npy", rewards_flat)
-
-# Plot the rewards
-plot = LearningCurvePlot()
-plot.add_curve(smooth([rewards_flat], 101), "SAC")
-plot.save("sac_sharpening.png")
+# Create and train the SAC model and sync with wandb
+model = SAC("MlpPolicy", env, verbose=1, buffer_size=10)
+model.learn(total_timesteps=110, callback=WandbCustomCallback(), progress_bar=True)
+model.save("sac_sharpening_ao_system")
 
 # Close the environment
 env.close()
