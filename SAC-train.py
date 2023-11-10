@@ -63,7 +63,6 @@ env = CustomEnvWrapper()
 # Create and train the SAC model and sync with wandb
 model = SAC("MlpPolicy", env, verbose=1, buffer_size=10)
 model.learn(total_timesteps=110, callback=WandbCustomCallback(), progress_bar=True)
-model.save("sac_sharpening_ao_system")
 
 # Close the environment
 env.close()
