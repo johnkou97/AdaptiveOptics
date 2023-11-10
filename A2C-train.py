@@ -25,7 +25,7 @@ class CustomEnvWrapper(gym.Env):
     def __init__(self):
         # Initialize your Sharpening_AO_system environment here
         self.env = Sharpening_AO_system()
-        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(4,), dtype=np.float32)
+        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(400,), dtype=np.float32)
         self.observation_space = gym.spaces.Box(low=0, high=1., shape=self.env.observation_space.shape, dtype=np.float32)
 
     def step(self, action):
@@ -48,7 +48,7 @@ env = CustomEnvWrapper()
 # Create and train the TD3 model with the custom callback
 model = A2C("MlpPolicy", env, verbose=1)
 callback = RewardCallback()
-model.learn(total_timesteps=1000, callback=callback, progress_bar=True)
+model.learn(total_timesteps=10000000, callback=callback, progress_bar=True)
 
 # Save the trained model
 model.save("a2c_sharpening")
