@@ -26,7 +26,7 @@ class CustomEnvWrapper(gym.Env):
     def __init__(self):
         # Initialize your Sharpening_AO_system environment here
         self.env = Sharpening_AO_system()
-        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(400,), dtype=np.float32)
+        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(4,), dtype=np.float32)
         self.observation_space = gym.spaces.Box(low=0, high=1., shape=self.env.observation_space.shape, dtype=np.float32)
 
     def step(self, action):
@@ -47,16 +47,16 @@ class CustomEnvWrapper(gym.Env):
 env = CustomEnvWrapper()
 
 # Create the SAC model with the custom callback
-model = SAC("MlpPolicy", env, verbose=1, buffer_size=10)
+model = SAC("MlpPolicy", env, verbose=1, buffer_size=1000)
 
 # Create an experiment
-n_timesteps = 110
+n_timesteps = 100000
 n_runs = 3
 
 
 print("Running experiment with SAC...")
 
-group_name = f"SAC-test-experiment"
+group_name = f"SAC-2act-0.4rms-buff1000"
 run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system"), group_name)
 
 for run in range(n_runs):
