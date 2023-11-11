@@ -23,7 +23,7 @@ def get_run_num(runs, group_name):
     return run_num
 
 # Create the Gym wrapper
-env = CustomEnvWrapper()
+env = CustomEnvWrapper(name=config["env_name"])
 
 # Create the SAC model with the custom callback
 model = SAC("MlpPolicy", env, verbose=1, buffer_size=1000)
