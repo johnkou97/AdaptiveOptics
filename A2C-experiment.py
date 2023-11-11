@@ -25,9 +25,6 @@ def get_run_num(runs, group_name):
 # Create the Gym wrapper
 env = CustomEnvWrapper(name=config["env_name"])
 
-# Create the SAC model with the custom callback
-model = A2C("MlpPolicy", env, verbose=1)
-
 # Create an experiment
 n_timesteps = 100000
 n_runs = 3
@@ -49,6 +46,8 @@ for run in range(n_runs):
         config=config,
         sync_tensorboard=True,
     )
+    env.reset()
+    model = A2C("MlpPolicy", env, verbose=1)
     model.learn(total_timesteps=n_timesteps, callback=WandbCustomCallback(), progress_bar=True)
     wandb.finish()
     run_num += 1

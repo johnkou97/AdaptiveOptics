@@ -25,16 +25,14 @@ def get_run_num(runs, group_name):
 # Create the Gym wrapper
 env = CustomEnvWrapper(name=config["env_name"])
 
-# Create the SAC model with the custom callback
-model = SAC("MlpPolicy", env, verbose=1, buffer_size=1000)
-
 # Create an experiment
 n_timesteps = 100000
 n_runs = 3
+buffer_size = 1000
 
 print("Running experiment with SAC...")
 
-group_name = f"SAC-{env.env.wf_rms}rms-{env.action_space.shape[0]}act-{model.buffer_size}buf"
+group_name = f"SAC-{env.env.wf_rms}rms-{env.action_space.shape[0]}act-{buffer_size}buf"
 # needs to change if you use sharpeing-ao-system or darkhole-ao-system with zernike modes to
 # indicate the use of zernike modes in the group name
 run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system"), group_name)
@@ -49,6 +47,8 @@ for run in range(n_runs):
         config=config,
         sync_tensorboard=True,
     )
+    env.reset()
+    model = SAC(config["policy_type"], env, verbose=1, buffer_size=buffer_size)
     model.learn(total_timesteps=n_timesteps, callback=WandbCustomCallback(), progress_bar=True)
     wandb.finish()
     run_num += 1
