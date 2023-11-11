@@ -43,17 +43,17 @@ Run the environment with the following command:
 
 - We addressed problems 2 and 3 by using `SAC` and `A2C` from `stable-baselines3` and training for 100k steps.
 
-<img src="a2c_sharpening.png" width="400" height="200">
+<img src="experiments/a2c_sharpening.png" width="400" height="200">
 
-<img src="sac_sharpening.png" width="400" height="200">
+<img src="experiments/sac_sharpening.png" width="400" height="200">
 
 - We addressed problem 4 and 1 by using a smaller action space (4 actuators instead of 400) and reducing the amplitude of the aberrations (from 1.7 to 1.2).
 
-<img src="sac_sharpening_experiment.png" width="400" height="200">
+<img src="experiments/sac_sharpening_experiment.png" width="400" height="200">
 
-<img src="a2c_sharpening_experiment.png" width="400" height="200">
+<img src="experiments/a2c_sharpening_experiment.png" width="400" height="200">
 
-<img src="a2c_sharpening_experiment_explained.png" width="400" height="200">
+<img src="experiments/a2c_sharpening_experiment_explained.png" width="400" height="200">
 
 
 
