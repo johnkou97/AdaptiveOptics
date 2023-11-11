@@ -1,15 +1,16 @@
-import gym
-import numpy as np
 from stable_baselines3 import A2C
-from gym_ao.gym_ao.gym_sharpening import Sharpening_AO_system
+from EnvironmentWrapper import CustomEnvWrapper
 from callbacks import WandbCustomCallback
 import wandb
 
 # Set up Weights and Biases
+project_name = "centering-ao-system"  # needs to change for each experiment
+# options: sharpening-ao-system, sharpening-ao-system-easy, centering-ao-system, darkhole-ao-system
 
 config = {
     "policy_type": "MlpPolicy",
-    "env_name": "Sharpening_AO_system"
+    "env_name": "Centering_AO_system" # needs to change for each experiment corresponding to project_name
+    # options: Sharpening_AO_system, Sharpening_AO_system_easy, Centering_AO_system, Darkhole_AO_system
 }
 
 api = wandb.Api()
@@ -21,30 +22,8 @@ def get_run_num(runs, group_name):
             run_num += 1
     return run_num
 
-
-class CustomEnvWrapper(gym.Env):
-    def __init__(self):
-        # Initialize your Sharpening_AO_system environment here
-        self.env = Sharpening_AO_system()
-        self.action_space = gym.spaces.Box(low=-0.3, high=0.3, shape=(4,), dtype=np.float32)
-        self.observation_space = gym.spaces.Box(low=0, high=1., shape=self.env.observation_space.shape, dtype=np.float32)
-
-    def step(self, action):
-        observation, reward, done, trunc, info = self.env.step(action)
-        if done:
-            observation = self.reset()
-        if trunc:
-            observation = self.reset()
-        return observation, reward, done, info
-
-    def reset(self):
-        return self.env.reset()
-
-    def render(self, mode='human'):
-        self.env.render()
-
 # Create the Gym wrapper
-env = CustomEnvWrapper()
+env = CustomEnvWrapper(name=config["env_name"])
 
 # Create the SAC model with the custom callback
 model = A2C("MlpPolicy", env, verbose=1)
@@ -53,18 +32,19 @@ model = A2C("MlpPolicy", env, verbose=1)
 n_timesteps = 100000
 n_runs = 3
 
-
 print("Running experiment with A2C...")
 
-group_name = f"A2C-2act-0.4rms"
-run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system"), group_name)
+group_name = f"A2C-{env.env.wf_rms}rms-{env.action_space.shape[0]}act" 
+# needs to change if you use sharpeing-ao-system or darkhole-ao-system with zernike modes to
+# indicate the use of zernike modes in the group name
+run_num = get_run_num(api.runs(f"adapt_opt/{project_name}"), group_name)
 
 for run in range(n_runs):
     print(f"Run {run+1} of {n_runs}")
     run = wandb.init(
         group=group_name,
         name=f"{group_name}-{run_num}",
-        project="sharpening-ao-system",
+        project=project_name,
         entity="adapt_opt",
         config=config,
         sync_tensorboard=True,
