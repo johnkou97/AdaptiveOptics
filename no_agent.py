@@ -27,7 +27,7 @@ print("Testing the environment with no agent")
 # run the environment with no actions
 
 env = CustomEnvWrapper(name=config["env_name"])
-group_name = f"no_agent-{env.env.wf_rms}rms"
+group_name = f"no_agent-{env.env.wf_rms}rms-{env.action_space.shape[0]}act"
 run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system-easy"), group_name)
 run = wandb.init(
     group=group_name,

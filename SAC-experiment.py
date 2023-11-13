@@ -35,7 +35,7 @@ print("Running experiment with SAC...")
 group_name = f"SAC-{env.env.wf_rms}rms-{env.action_space.shape[0]}act-{buffer_size}buf"
 # needs to change if you use sharpeing-ao-system or darkhole-ao-system with zernike modes to
 # indicate the use of zernike modes in the group name
-run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system"), group_name)
+run_num = get_run_num(api.runs(f"adapt_opt/{project_name}"), group_name)
 
 for run in range(n_runs):
     print(f"Run {run+1} of {n_runs}")
