@@ -47,7 +47,7 @@ for run in range(n_runs):
         sync_tensorboard=True,
     )
     env.reset()
-    model = A2C("MlpPolicy", env, verbose=1)
+    model = A2C(config["policy_type"], env, verbose=0)
     model.learn(total_timesteps=n_timesteps, callback=WandbCustomCallback(), progress_bar=True)
     wandb.finish()
     run_num += 1
