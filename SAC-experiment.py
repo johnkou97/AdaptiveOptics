@@ -48,9 +48,10 @@ for run in range(n_runs):
         sync_tensorboard=True,
     )
     env.reset()
-    model = SAC(config["policy_type"], env, verbose=1, buffer_size=buffer_size)
+    model = SAC(config["policy_type"], env, verbose=0, buffer_size=buffer_size)
     model.learn(total_timesteps=n_timesteps, callback=WandbCustomCallback(), progress_bar=True)
     wandb.finish()
+    model.save(f"models/{group_name}-{run_num}")
     run_num += 1
 
 # Close the environment

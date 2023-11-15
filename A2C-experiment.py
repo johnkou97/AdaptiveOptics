@@ -50,6 +50,7 @@ for run in range(n_runs):
     model = A2C(config["policy_type"], env, verbose=0)
     model.learn(total_timesteps=n_timesteps, callback=WandbCustomCallback(), progress_bar=True)
     wandb.finish()
+    model.save(f"models/{group_name}-{run_num}")
     run_num += 1
 
 # Close the environment
