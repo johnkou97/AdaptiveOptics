@@ -1,5 +1,4 @@
 # folders to ignore
-gym_ao/
 __pycache__/
 .ipynb_checkpoints/
 wandb/
