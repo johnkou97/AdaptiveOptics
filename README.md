@@ -29,31 +29,42 @@ Run the environment with the following command:
 
 ```python gym_ao/gym_ao/gym_darkhole.py```
 
-## Discussion during previous meeting
+### Image sharpening easy
 
-1. Simplify the environment
-2. Try different algorithms
-3. Try longer training
-4. Large action space
-5. Rewards too sparse
-6. Use recurrent network
-7. Exploration vs exploitation
+The goal of this environment is to maximize the Strehl ratio based on focal plane images like in the image sharpening environment. The difference is that the aberrations from the atmosphere can always be corrected by the zernike modes of the deformable mirror. 
 
-## What we tried
+- Observation: The observed (noisy) image intensity in the focal plane. The image is normalized such that the values are always between 0 and 1. The image has a size of 96x96 pixels.
+- Action: An array of commands to send to the actuators to reshape the deformable mirror. This is in units of radians and should have an absolute value smaller than 0.3 to avoid divergence. Default is with 20 modes of zernike.
+- Reward: The Strehl ratio, which is a measure of image sharpness and is between 0 and 1.
 
-- We addressed problems 2 and 3 by using `SAC` and `A2C` from `stable-baselines3` and training for 100k steps.
+Run the environment with the following command:
 
-<img src="experiments/a2c_sharpening.png" width="400" height="200">
+```python gym_ao/gym_ao/gym_sharpening_easy.py```
 
-<img src="experiments/sac_sharpening.png" width="400" height="200">
+### Image centering
 
-- We addressed problem 4 and 1 by using a smaller action space (4 actuators instead of 400) and reducing the amplitude of the aberrations (from 1.7 to 1.2).
+The goal of this environment is to minimize the distance between the center of the image and the center of the focal plane.
 
-<img src="experiments/sac_sharpening_experiment.png" width="400" height="200">
+- Observation: The observed (noisy) image intensity in the focal plane. The image is normalized such that the values are always between 0 and 1. The image has a size of 96x96 pixels.
+- Action: An array of commands to send to the actuators to reshape the deformable mirror. This is in units of radians and should have an absolute value smaller than 0.3 to avoid divergence. For this environment we only use 2 zernike modes (tip and tilt) to correct the aberrations.
+- Reward: The negative of the distance between the center of the image and the center of the focal plane.
 
-<img src="experiments/a2c_sharpening_experiment.png" width="400" height="200">
+Run the environment with the following command:
 
-<img src="experiments/a2c_sharpening_experiment_explained.png" width="400" height="200">
+```python gym_ao/gym_ao/gym_centering.py```
+
+
+## Results
+
+We use Weights & Biases to track the results of the experiments. 
+
+### Centering
+
+Find the training results [here](https://api.wandb.ai/links/adapt_opt/gbkd3qfs).
+
+#### Evaluation
+
+![](figures/evaluation_centering_ao_system.png)
 
 
 
