@@ -64,7 +64,21 @@ Find the training results [here](https://api.wandb.ai/links/adapt_opt/gbkd3qfs).
 
 #### Evaluation
 
+We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
+
 ![](figures/evaluation_centering_ao_system.png)
+
+### Sharpening easy
+
+We use only 2 zernike modes to correct the aberrations from the atmosphere. Reminder that for this environment the aberrations can always be corrected by the zernike modes of the deformable mirror that we use.
+
+Find the training results [here](https://api.wandb.ai/links/adapt_opt/5y122g06).
+
+#### Evaluation
+
+We evaluate each agent on 1000 episodes. Each episode is 100 steps long. 
+
+![](figures/evaluation_Sharpening_AO_system_easy.png)
 
 
 
