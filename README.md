@@ -70,11 +70,11 @@ We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
 
 ### Sharpening easy
 
-We use only 2 zernike modes to correct the aberrations from the atmosphere. Reminder that for this environment the aberrations can always be corrected by the zernike modes of the deformable mirror that we use.
+We have trained agents on the sharpening easy environment with 2 and 5 zernike modes. Reminder that for this environment the aberrations can always be corrected by the zernike modes of the deformable mirror that we use each time.
 
 Find the training results [here](https://api.wandb.ai/links/adapt_opt/5y122g06).
 
-#### Evaluation
+#### Evaluation for 2 zernike modes
 
 We evaluate each agent on 1000 episodes. Each episode is 100 steps long. 
 
@@ -83,6 +83,16 @@ We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
 We also evaluate the best performing agent on 10000 episodes of 100 steps and compare it to the performance of the baseline.
 
 ![](figures/evaluation_Sharpening_AO_system_easy-2.png)
+
+#### Evaluation for 5 zernike modes
+
+We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
+
+![](figures/evaluation_Sharpening_AO_system_easy-6act.png)
+
+We also evaluate the best performing agent on 10000 episodes of 100 steps and compare it to the performance of the baseline.
+
+![](figures/evaluation_Sharpening_AO_system_easy-6act-2.png)
 
 
 
