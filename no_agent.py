@@ -29,23 +29,31 @@ print("Testing the environment with no agent")
 env = CustomEnvWrapper(name=config["env_name"])
 group_name = f"no_agent-{env.env.wf_rms}rms-{env.action_space.shape[0]}act"
 run_num = get_run_num(api.runs("adapt_opt/sharpening-ao-system-easy"), group_name)
-run = wandb.init(
-    group=group_name,
-    name=f"{group_name}-{run_num}",
-    project=project_name,
-    entity="adapt_opt",
-    config=config,
-    sync_tensorboard=True
-)
-env.reset()
-rewards = []
-for _ in tqdm.tqdm(range(100000)):
-    action = np.zeros(env.action_space.shape)
-    observation, reward, done, info = env.step(action)
-    rewards.append(reward)
-    wandb.log({"reward": reward})
-env.close()
-wandb.finish()
+
+
+n_runs = 3
+n_steps = 200000
+
+for run in range(n_runs):
+    print(f"Run {run+1}/{n_runs}")
+    run = wandb.init(
+        group=group_name,
+        name=f"{group_name}-{run_num}",
+        project=project_name,
+        entity="adapt_opt",
+        config=config,
+        sync_tensorboard=True
+        )
+    env.reset()
+    rewards = []
+    for _ in tqdm.tqdm(range(n_steps)):
+        action = np.zeros(env.action_space.shape)
+        observation, reward, done, info = env.step(action)
+        rewards.append(reward)
+        wandb.log({"reward": reward})
+    env.close()
+    wandb.finish()
+    run_num += 1
 
 # get the average reward and the standard deviation
 rewards = np.array(rewards)
