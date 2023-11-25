@@ -105,3 +105,13 @@ We also evaluate the best performing agent on 10000 episodes of 100 steps and co
 
 ![](figures/evaluation_Sharpening_AO_system_easy-10act-2.png)
 
+### Evaluation for 14 zernike modes
+
+We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
+
+![](figures/evaluation_Sharpening_AO_system_easy-15act.png)
+
+We also evaluate the best performing agent on 10000 episodes of 100 steps and compare it to the performance of the baseline.
+
+![](figures/evaluation_Sharpening_AO_system_easy-15act-2.png)
+
