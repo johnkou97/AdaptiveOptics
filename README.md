@@ -1,5 +1,28 @@
 # Reinforcement Learning for Adaptive Optics
 
+<!-- create a table of contents skip the first header -->
+## Table of Contents
+
+- [Table of Contents](##Table-of-Contents)
+- [Environment](##Environment)
+    - [Image sharpening](###Image-sharpening)
+    - [Dark hole](###Dark-hole)
+    - [Image sharpening easy](###Image-sharpening-easy)
+    - [Image centering](###Image-centering)
+- [Results](##Results)
+    - [Centering](###Centering)
+        - [Evaluation](####Evaluation)
+    - [Sharpening easy](###Sharpening-easy)
+        - [Evaluation for 2 zernike modes](####Evaluation-for-2-zernike-modes)
+        - [Evaluation for 5 zernike modes](####Evaluation-for-5-zernike-modes)
+        - [Evaluation for 9 zernike modes](####Evaluation-for-9-zernike-modes)
+        - [Evaluation for 14 zernike modes](####Evaluation-for-14-zernike-modes)
+        - [Evaluation for 20 zernike modes](####Evaluation-for-20-zernike-modes)
+- [Animations](##Animations)
+    - [Sharpening easy with 20 zernike modes](###Sharpening-easy-with-20-zernike-modes)
+        - [Baseline (no agent)](####Baseline-(no-agent))
+        - [Best agent](####Best-agent)
+
 ## Environments
 
 ### Image sharpening
@@ -105,7 +128,7 @@ We also evaluate the best performing agent on 10000 episodes of 100 steps and co
 
 ![](figures/evaluation_Sharpening_AO_system_easy-10act-2.png)
 
-### Evaluation for 14 zernike modes
+#### Evaluation for 14 zernike modes
 
 We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
 
@@ -115,7 +138,7 @@ We also evaluate the best performing agent on 10000 episodes of 100 steps and co
 
 ![](figures/evaluation_Sharpening_AO_system_easy-15act-2.png)
 
-### Evaluation for 20 zernike modes
+#### Evaluation for 20 zernike modes
 
 We evaluate each agent on 1000 episodes. Each episode is 100 steps long.
 
@@ -125,3 +148,17 @@ We also evaluate the best performing agent on 10000 episodes of 100 steps and co
 
 ![](figures/evaluation_Sharpening_AO_system_easy-21act-2.png)
 
+
+## Animations
+
+### Sharpening easy with 20 zernike modes
+
+#### Baseline (no agent)
+
+![](figures/animations/no_agent.gif)
+
+#### Best agent
+
+Our best agent is the `SAC-1.7rms-21act-100000buf-2`.
+
+![](figures/animations/SAC-1.7rms-21act-100000buf-2.gif)
