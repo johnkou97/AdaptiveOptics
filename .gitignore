@@ -2,6 +2,10 @@
 __pycache__/
 .ipynb_checkpoints/
 wandb/
+# in folder figures/animations ignore all subfolders but not the .gif files
+figures/animations/**
+!figures/animations/*.gif
+
 
 # extensions to ignore
 *.pt
