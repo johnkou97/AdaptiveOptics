@@ -20,7 +20,7 @@ for episode in tqdm.tqdm(range(eval_episodes)):
     rewards = []
     obs = env.reset()
     for step in range(eval_steps):
-        action = .1
+        action = 0
         obs, reward, done, info = env.step(action)
         rewards.append(reward)
         env.render(episode=episode, iteration = step, tot_rewards = average_reward, loc='no_agent')
@@ -29,7 +29,7 @@ for episode in tqdm.tqdm(range(eval_episodes)):
     # keep track of rewards
     average_reward.append(sum(rewards)/len(rewards))
 
-# # evaluate agent
+# evaluate agent
 model_name = 'SAC-1.7rms-21act-100000buf-2'
 model = SAC.load(f"models/{model_name}")
 average_reward = []
@@ -54,7 +54,7 @@ filenames.sort()
 for filename in filenames:
     if filename.startswith('0') or filename.startswith('1'):
         images.append(imageio.imread('figures/animations/no_agent/' + filename))
-imageio.mimsave('figures/animations/no_agent.gif', images, duration=1000/10)
+imageio.mimsave('figures/animations/no_agent.gif', images, duration=1000/5)
 
 # make a gif for the agent
 images = []
@@ -64,5 +64,5 @@ filenames.sort()
 for filename in filenames:
     if filename.startswith('3') or filename.startswith('4'):
         images.append(imageio.imread(f'figures/animations/{model_name}/' + filename))
-imageio.mimsave(f'figures/animations/{model_name}.gif', images, duration=1000/10)
+imageio.mimsave(f'figures/animations/{model_name}.gif', images, duration=1000/5)
 
