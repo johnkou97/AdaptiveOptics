@@ -1,6 +1,15 @@
 import numpy as np
 from helper import LearningCurvePlot, smooth
 import wandb
+import os
+
+# check if the reward_data folder exists
+if not os.path.exists('reward_data'):
+    os.makedirs('reward_data')
+
+# check if the figures folder exists
+if not os.path.exists('figures/learning_curves'):
+    os.makedirs('figures/learning_curves')
 
 api = wandb.Api()
 
@@ -20,14 +29,12 @@ def plot_learning_curves(groups, length, ylim=(0, 1), name='test', types='png', 
                     if len(r) < length-1:
                         print(f'WARNING: {reward_file} has only {len(r)} entries, but {length} are required')
                     else:
-                        print(f'{reward_file} has {len(r)} entries')
                         rewards.append(smooth(r[:length-1], length//100))
                 except:
                     # fetch the logged data for this run
                     run_data = run.scan_history()
                     # get the reward data
                     reward_data = [x["reward"] for x in run_data]
-                    print(f"Saving {len(reward_data)}")
                     # save the reward data
                     np.save(reward_file, reward_data)
                     rewards.append(smooth(reward_data[:length-1], length//100))
