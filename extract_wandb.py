@@ -64,27 +64,27 @@ if __name__ == '__main__':
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-6act-1000buf', 'SAC-1.7rms-6act-10000buf', 'SAC-1.7rms-6act-20000buf', 'A2C-1.7rms-6act', 'no_agent-1.7rms-6act']
-    # length = 200000
+    length = 200000
 
     plot_learning_curves(groups, length, name='easy_5zer', types='png', project_name=project_name)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-10act-10000buf', 'SAC-1.7rms-10act-20000buf', 'A2C-1.7rms-10act', 'no_agent-1.7rms-10act']
-    # length = 200000
+    length = 200000
 
     plot_learning_curves(groups, length, name='easy_9zer', types='png', project_name=project_name)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-15act-10000buf', 'SAC-1.7rms-15act-20000buf', 'SAC-1.7rms-15act-50000buf', 'A2C-1.7rms-15act', 'no_agent-1.7rms-15act']
-    # length = 300000
+    length = 300000
 
     plot_learning_curves(groups, length, name='easy_14zer', types='png', project_name=project_name)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-21act-20000buf', 'SAC-1.7rms-21act-50000buf', 'SAC-1.7rms-21act-100000buf', 'A2C-1.7rms-21act', 'no_agent-1.7rms-21act']
-    # length = 800000
+    length = 800000
 
     plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name)
