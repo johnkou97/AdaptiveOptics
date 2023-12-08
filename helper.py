@@ -18,14 +18,27 @@ import pandas as pd
 
 class LearningCurvePlot:
 
-    def __init__(self, title=None, ylabel="Reward", y_lim=(0, 1)):
-        self.fig, self.ax = plt.subplots()
-        self.ax.set_xlabel('Episodes')
-        self.ax.set_ylabel(ylabel)
+    def __init__(self, title=None, ylabel="Reward", y_lim=(0, 1), length=100000, figsize=(16, 9)):
+        self.fig, self.ax = plt.subplots(figsize=figsize)
+        self.ax.set_xlabel('Steps', fontsize=14)
+        self.ax.set_ylabel(ylabel, fontsize=14)
         if y_lim is not None:
             self.ax.set_ylim(y_lim)
         if title is not None:
             self.ax.set_title(title)
+        self.ax.set_xlim(0, length)
+        # make xticks nice and readable
+        self.ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+        self.ax.tick_params(axis='both', which='major', labelsize=14)
+        # make minor ticks 
+        self.ax.minorticks_on()
+        # set grid that is not too intrusive
+        self.ax.grid(which='major', linestyle='--', linewidth='0.5', color='gray', alpha=0.5)
+        # make sure the grid is behind the plot
+        self.ax.set_axisbelow(True)
+        # make background plot background black
+        # self.ax.set_facecolor('xkcd:black')
+
 
     def add_curve(self, y, label=None):
         ''' y: vector of average reward results
@@ -33,11 +46,11 @@ class LearningCurvePlot:
         mean = np.mean(y, axis=0)
         std = np.std(y, axis=0)
         if label is not None:
-            self.ax.plot(mean, label=label)
-            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.2)
+            self.ax.plot(mean, label=label, linewidth=2)
+            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.4)
         else:
-            self.ax.plot(mean)
-            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.2)
+            self.ax.plot(mean, linewidth=2)
+            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.4)
 
     def set_ylim(self, lower, upper):
         self.ax.set_ylim([lower, upper])
@@ -45,7 +58,7 @@ class LearningCurvePlot:
     def add_hline(self, height, label):
         self.ax.axhline(height, ls='--', c='k', label=label)
 
-    def save(self, name='test.png', legend_pos='best', legend_fontsize='medium', legend_down=False):
+    def save(self, name='test.png', legend_pos='best', legend_fontsize='medium', legend_down=False, dpi=400):
         ''' name: string for filename of saved figure '''
         if legend_down:
             # Put a legend below current axis
@@ -54,8 +67,7 @@ class LearningCurvePlot:
             self.fig.tight_layout()
         else:
             self.ax.legend(loc=legend_pos, fontsize=legend_fontsize)
-        self.fig.savefig(name, dpi=300)
-
+        self.fig.savefig(name, dpi=dpi)
 
 def smooth(y, window, poly=1):
     '''
