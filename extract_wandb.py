@@ -31,6 +31,7 @@ def plot_learning_curves(groups, length, ylim=(0, 1), name='test', types='png', 
                     else:
                         rewards.append(smooth(r[:length-1], length//20))
                 except:
+                    print(f'Fetching {run.name}')
                     # fetch the logged data for this run
                     run_data = run.scan_history()
                     # get the reward data
@@ -93,4 +94,4 @@ if __name__ == '__main__':
     groups = ['SAC-1.7rms-28act-100000buf', 'no_agent-1.7rms-28act']
     length = 2000000
 
-    plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_27zer', types='png', project_name=project_name, dpi=900)
