@@ -18,10 +18,14 @@
         - [Evaluation for 9 zernike modes](#evaluation-for-9-zernike-modes)
         - [Evaluation for 14 zernike modes](#evaluation-for-14-zernike-modes)
         - [Evaluation for 20 zernike modes](#evaluation-for-20-zernike-modes)
+        - [Evaluation for 27 zernike modes](#evaluation-for-27-zernike-modes)
 - [Animations](#animations)
-    - [Sharpening easy with 20 zernike modes](#sharpening-easy-with-20-zernike-modes)
+    - [Centering](#centering-1)
         - [Baseline (no agent)](#baseline-no-agent)
         - [Best agent](#best-agent)
+    - [Sharpening easy with 20 zernike modes](#sharpening-easy-with-20-zernike-modes)
+        - [Baseline (no agent)](#baseline-no-agent-1)
+        - [Best agent](#best-agent-1)
 
 ## Environments
 
