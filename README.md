@@ -148,8 +148,26 @@ We also evaluate the best performing agent on 10000 episodes of 100 steps and co
 
 ![](figures/evaluation_Sharpening_AO_system_easy-21act-2.png)
 
+#### Evaluation for 27 zernike modes
+
+Since we only trained one agent for 27 zernike modes, we evaluate it on 10000 episodes of 100 steps and compare it to the performance of the baseline.
+
+![](figures/evaluation_Sharpening_AO_system_easy-28act.png)
+
 
 ## Animations
+
+### Centering
+
+#### Baseline (no agent)
+
+![](figures/animations/no_agent_Centering.gif)
+
+#### Best agent
+
+Our best agent is the `SAC-3rms-3act-10000buf-4`.
+
+![](figures/animations/SAC-3rms-3act-1000buf-4.zip.gif)
 
 ### Sharpening easy with 20 zernike modes
 
