@@ -40,7 +40,7 @@ def plot_learning_curves(groups, length, ylim=(0, 1), name='test', types='png', 
                     np.save(reward_file, reward_data)
                     rewards.append(smooth(reward_data[:length-1], length//20))
 
-        plot.add_curve(rewards, f'{group.split("-")[0]}-{group.split("-")[-1]}') if group.split("-")[0] == 'SAC' else plot.add_curve(rewards, f'{group.split("-")[0]}')
+        plot.add_curve(rewards, f'{group.split("-")[0]} {group.split("-")[-1]}') if group.split("-")[0] == 'SAC' else plot.add_curve(rewards, f'{group.split("-")[0].replace("_", " ")}')
         
     plot.save(f'figures/learning_curves/{name}.{types}', dpi=dpi)
 
@@ -53,45 +53,54 @@ if __name__ == '__main__':
     groups = ['SAC-3rms-3act-1000buf', 'SAC-3rms-3act-100buf', 'SAC-3rms-3act-10buf', 'A2C-3rms-3act', 'no_agent-3rms']
     length = 100000
 
-    plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='pdf', project_name=project_name, dpi=900)
+
 
     project_name = 'sharpening-ao-system-easy'
     # define names of the groups to plot
     groups = ['SAC-1.7rms-3act-1000buf', 'SAC-1.7rms-3act-10000buf', 'SAC-1.7rms-3act-20000buf','SAC-1.7rms-3act-100buf', 'A2C-1.7rms-3act', 'no_agent-1.7rms-3act']
     length = 100000
 
-    plot_learning_curves(groups, length, name='easy_2zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_2zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_2zer', types='pdf', project_name=project_name, dpi=900)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-6act-1000buf', 'SAC-1.7rms-6act-10000buf', 'SAC-1.7rms-6act-20000buf', 'A2C-1.7rms-6act', 'no_agent-1.7rms-6act']
     length = 200000
 
-    plot_learning_curves(groups, length, name='easy_5zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_5zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_5zer', types='pdf', project_name=project_name, dpi=900)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-10act-10000buf', 'SAC-1.7rms-10act-20000buf', 'A2C-1.7rms-10act', 'no_agent-1.7rms-10act']
     length = 200000
 
-    plot_learning_curves(groups, length, name='easy_9zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_9zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_9zer', types='pdf', project_name=project_name, dpi=900)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-15act-10000buf', 'SAC-1.7rms-15act-20000buf', 'SAC-1.7rms-15act-50000buf', 'A2C-1.7rms-15act', 'no_agent-1.7rms-15act']
     length = 300000
 
-    plot_learning_curves(groups, length, name='easy_14zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_14zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_14zer', types='pdf', project_name=project_name, dpi=900)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-21act-20000buf', 'SAC-1.7rms-21act-50000buf', 'SAC-1.7rms-21act-100000buf', 'A2C-1.7rms-21act', 'no_agent-1.7rms-21act']
     length = 800000
 
-    plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_20zer', types='pdf', project_name=project_name, dpi=900)
+
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-28act-100000buf', 'no_agent-1.7rms-28act']
     length = 2000000
 
-    plot_learning_curves(groups, length, name='easy_27zer', types='png', project_name=project_name, dpi=900)
+    # plot_learning_curves(groups, length, name='easy_27zer', types='png', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_27zer', types='pdf', project_name=project_name, dpi=900)

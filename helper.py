@@ -20,8 +20,8 @@ class LearningCurvePlot:
 
     def __init__(self, title=None, ylabel="Reward", y_lim=(0, 1), length=100000, figsize=(16, 9)):
         self.fig, self.ax = plt.subplots(figsize=figsize)
-        self.ax.set_xlabel('Steps', fontsize=14)
-        self.ax.set_ylabel(ylabel, fontsize=14)
+        self.ax.set_xlabel('Steps', fontsize=18)
+        self.ax.set_ylabel(ylabel, fontsize=18)
         if y_lim is not None:
             self.ax.set_ylim(y_lim)
         if title is not None:
@@ -29,7 +29,7 @@ class LearningCurvePlot:
         self.ax.set_xlim(0, length)
         # make xticks nice and readable
         self.ax.xaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
-        self.ax.tick_params(axis='both', which='major', labelsize=14)
+        self.ax.tick_params(axis='both', which='major', labelsize=16)
         # make minor ticks 
         self.ax.minorticks_on()
         # set grid that is not too intrusive
@@ -58,7 +58,7 @@ class LearningCurvePlot:
     def add_hline(self, height, label):
         self.ax.axhline(height, ls='--', c='k', label=label)
 
-    def save(self, name='test.png', legend_pos='best', legend_fontsize='medium', legend_down=False, dpi=400):
+    def save(self, name='test.png', legend_pos='best', legend_fontsize=18, legend_down=False, dpi=400):
         ''' name: string for filename of saved figure '''
         if legend_down:
             # Put a legend below current axis
@@ -66,7 +66,9 @@ class LearningCurvePlot:
                            frameon=False)
             self.fig.tight_layout()
         else:
-            self.ax.legend(loc=legend_pos, fontsize=legend_fontsize)
+            print('1')
+            self.ax.legend(loc=legend_pos, fontsize=legend_fontsize, frameon=True, facecolor='lightgrey')
+            self.fig.tight_layout()
         self.fig.savefig(name, dpi=dpi)
 
 def smooth(y, window, poly=1):
