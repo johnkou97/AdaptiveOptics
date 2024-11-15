@@ -53,8 +53,7 @@ if __name__ == '__main__':
     groups = ['SAC-3rms-3act-1000buf', 'SAC-3rms-3act-100buf', 'SAC-3rms-3act-10buf', 'A2C-3rms-3act', 'no_agent-3rms']
     length = 100000
 
-    # plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='png', project_name=project_name, dpi=900)
-    plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='pdf', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, ylim=(-0.1,0) ,name='centering', types='png', project_name=project_name, dpi=900)
 
 
     project_name = 'sharpening-ao-system-easy'
@@ -94,13 +93,11 @@ if __name__ == '__main__':
     groups = ['SAC-1.7rms-21act-20000buf', 'SAC-1.7rms-21act-50000buf', 'SAC-1.7rms-21act-100000buf', 'A2C-1.7rms-21act', 'no_agent-1.7rms-21act']
     length = 800000
 
-    # plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name, dpi=900)
-    plot_learning_curves(groups, length, name='easy_20zer', types='pdf', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_20zer', types='png', project_name=project_name, dpi=900)
 
 
     # define names of the groups to plot
     groups = ['SAC-1.7rms-28act-100000buf', 'no_agent-1.7rms-28act']
     length = 2000000
 
-    # plot_learning_curves(groups, length, name='easy_27zer', types='png', project_name=project_name, dpi=900)
-    plot_learning_curves(groups, length, name='easy_27zer', types='pdf', project_name=project_name, dpi=900)
+    plot_learning_curves(groups, length, name='easy_27zer', types='png', project_name=project_name, dpi=900)

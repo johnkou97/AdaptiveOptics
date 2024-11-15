@@ -49,20 +49,20 @@ for episode in tqdm.tqdm(range(eval_episodes)):
 # make gifs
 images = []
 filenames = os.listdir('figures/animations/no_agent')
-filenames.sort()
+filenames.sort(key=lambda x: (int(x.split('_')[0]), int(x.split('_')[1].split('.')[0])))
 
 for filename in filenames:
-    if filename.startswith('0') or filename.startswith('1'):
+    if filename.startswith('3') or filename.startswith('4'):
         images.append(imageio.imread('figures/animations/no_agent/' + filename))
 imageio.mimsave('figures/animations/no_agent.gif', images, duration=1000/5)
 
 # make a gif for the agent
 images = []
 filenames = os.listdir(f'figures/animations/{model_name}')
-filenames.sort()
+filenames.sort(key=lambda x: (int(x.split('_')[0]), int(x.split('_')[1].split('.')[0])))
 
 for filename in filenames:
-    if filename.startswith('3') or filename.startswith('4'):
+    if filename.startswith('3') or filename.startswith('5'):
         images.append(imageio.imread(f'figures/animations/{model_name}/' + filename))
 imageio.mimsave(f'figures/animations/{model_name}.gif', images, duration=1000/5)
 

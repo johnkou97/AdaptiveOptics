@@ -43,14 +43,19 @@ class LearningCurvePlot:
     def add_curve(self, y, label=None):
         ''' y: vector of average reward results
         label: string to appear as label in plot legend '''
+        skip = 1 # only plot every nth point
+        x = np.arange(len(y[0]))
+        x = x[::skip]
         mean = np.mean(y, axis=0)
+        mean = mean[::skip]
         std = np.std(y, axis=0)
+        std = std[::skip]
         if label is not None:
-            self.ax.plot(mean, label=label, linewidth=2)
-            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.4)
+            self.ax.plot(x, mean, label=label, linewidth=2)
+            self.ax.fill_between(x, (mean - std), (mean + std), alpha=.4)
         else:
-            self.ax.plot(mean, linewidth=2)
-            self.ax.fill_between(list(range(len(mean))), (mean - std), (mean + std), alpha=.4)
+            self.ax.plot(x, mean, linewidth=2)
+            self.ax.fill_between(x, (mean - std), (mean + std), alpha=.4)
 
     def set_ylim(self, lower, upper):
         self.ax.set_ylim([lower, upper])

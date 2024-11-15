@@ -103,4 +103,5 @@ class CustomEnvWrapper(gym.Env):
                     os.makedirs(f"figures/animations/{loc}")
 
                 plt.savefig(f"figures/animations/{loc}/{episode}_{iteration}.png")
+                # plt.savefig(f"figures/animations/{loc}/svg_{episode}_{iteration}.svg")
 
