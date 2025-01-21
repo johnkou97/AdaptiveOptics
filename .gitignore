@@ -2,10 +2,10 @@
 __pycache__/
 .ipynb_checkpoints/
 wandb/
-# in folder figures/animations ignore all subfolders but not the .gif files
+# in folder figures/animations ignore all subfolders but not the .gif and .avi files
 figures/animations/**
 !figures/animations/*.gif
-
+!figures/animations/*.avi
 
 # extensions to ignore
 *.pt
