@@ -1,5 +1,7 @@
 # Reinforcement Learning for Adaptive Optics
 
+[![Project Website](https://img.shields.io/badge/project-page-orange)](https://koutalios.space/projects/RLAdaptive/)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 ## Table of Contents
 
@@ -88,10 +90,9 @@ conda activate adapt
 - `figures/`: Contains experiment results and visualizations.
 
 - `LICENSE`: MIT License file.
-- `README.md`: Project documentation.
-- `STRUCTURE.md`: This file.
-- `requirements.txt`: Python dependencies for pip.
 - `environment.yml`: Conda environment specification.
+- `Model-Free Reinforcement Learning for Sensorless Adaptive Optics.pdf`: Final report of the project.
+- `README.md`: This file.
 
 
 ### Running the Environments and Training Agents
